@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { useState,useRef, useMemo, useEffect } from 'react'
+import { Validation } from '../utils/validation';
 
 function LoginForm() {
+    const [signIn,setSignIn]= useState(true);
+    const emailRef=useRef(null);
+    const passwordRef=useRef(null);
+    const [result,setResult]=useState({});
+
+    const handleOnSubmit=()=>{
+     const validationResult = Validation(emailRef?.current?.value,passwordRef?.current?.value);
+     setResult(validationResult);
+    }
+    
   return (
     <div className='absolute z-10 bg-black opacity-80 mx-auto left-0 right-0 top-1/4 w-96 p-8 text-white rounded-md'>
         <form >
-            <h3 className='font-bold text-2xl pb-4'>Sign In</h3>
-        <input className='p-2 my-4 mx-2 bg-gray-700 w-full rounded-sm' type="email" placeholder='Email Address'/>
-        <input className='p-2 my-4 mx-2 bg-gray-700 w-full rounded-sm' type="password" placeholder='Password'/><br/>
-        <button className='my-4 mx-2 w-full bg-red-600 py-2 px-4 rounded'>Sign In</button>
-        <p className='text-sm'>New to Netflix ? <span >Sign up now</span></p>
+            <h3 className='font-bold text-2xl pb-4'>{signIn? "Sign In" : "Sign Up"}</h3>
+           {!signIn && <input className='p-2 my-4 mx-2 bg-gray-700 w-full rounded-sm' type="text" placeholder='Full Name'/>}
+           <p>{result?.failedValidation == "email" ? <span className='text-red-500'>{result.message}</span> : null}</p>
+       <input className='p-2 my-4 mx-2 bg-gray-700 w-full rounded-sm' type="text" placeholder='Email Address' ref={emailRef}/>
+       <p>{result?.failedValidation =="password" ? <span className='text-red-500'>{result.message}</span> : null}</p>
+        <input className='p-2 my-4 mx-2 bg-gray-700 w-full rounded-sm' type="password" placeholder='Password' ref={passwordRef}/><br/>
+        <button className='my-4 mx-2 w-full bg-red-600 py-2 px-4 rounded' onClick={(e)=>{e.preventDefault(); handleOnSubmit();}}>{signIn? "Sign In" : "Sign Up"}</button>
+        <p className='text-sm cursor-pointer' onClick={()=>setSignIn(!signIn)}>{signIn ? "New to Netflix ? " : "Already have an account ? "} <span >{signIn ? "Sign up now" : "Sign in now"}</span></p>
       </form>
     </div>
   )

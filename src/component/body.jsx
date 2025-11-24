@@ -2,7 +2,8 @@ import React from 'react'
 import Routes from '../utils/routes'
 import Header from './header'
 
-function Body() {
+function Body() {   
+            
   return (
     <>    
     <Routes/>
