@@ -6,7 +6,7 @@ if(!emailRegex){
     return {valid:false , message:"Invalid Email format",failedValidation:"email"};
 }
 if(!passwordRegex){
-    return {valid:false , message:"Password must be at least 8 characters long and contain at least one letter and one number",failedValidation:"password"};
+    return {valid:false , message:"Invalid Password format",failedValidation:"password"};
 }
 return {valid:true, message:"Validation Successful"}
 }
