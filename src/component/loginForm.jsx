@@ -1,16 +1,48 @@
 import React, { useState,useRef, useMemo, useEffect } from 'react'
 import { Validation } from '../utils/validation';
+import { auth} from '../utils/firebase';
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 
 function LoginForm() {
     const [signIn,setSignIn]= useState(true);
     const emailRef=useRef(null);
     const passwordRef=useRef(null);
-    const [result,setResult]=useState({});
+    const [result,setResult]=useState({});    
 
     const handleOnSubmit=()=>{
      const validationResult = Validation(emailRef?.current?.value,passwordRef?.current?.value);
-     setResult(validationResult);
+     setResult(validationResult);     
+     if(!result.valid){      
+        return;
+     }
+     if(!signIn){
+      createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setResult({valid:false , message:errorCode +"-" +errorMessage });
+  });
+     }
+     else{
+      signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+
     }
+    }
+    
     
   return (
     <div className='absolute z-10 bg-black opacity-80 mx-auto left-0 right-0 top-1/4 w-96 p-8 text-white rounded-md'>
