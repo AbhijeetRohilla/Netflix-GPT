@@ -11,23 +11,7 @@ import { addUser, removeUser } from '../redux/userSlice';
 function Login() {
 
   
-  const dispatch=useDispatch();   
-  
-  useEffect(()=>{
-onAuthStateChanged(auth, (user) => {
-  const {email,uid,displayName}=user
-  if (user) {        
-    dispatch(addUser({email,uid,displayName}))     
-          
-    // ...
-  } else {
-    // User is signed out
-    dispatch(removeUser())    
-    // ...
-  }
-});
-  },[])
-
+  const dispatch=useDispatch();      
 
   return (
     <div>
