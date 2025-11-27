@@ -2,8 +2,11 @@ import React, { useState,useRef, useMemo, useEffect } from 'react'
 import { Validation } from '../utils/validation';
 import { auth} from '../utils/firebase';
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+
 
 function LoginForm() {
+    const navigate=useNavigate();
     const [signIn,setSignIn]= useState(true);
     const emailRef=useRef(null);
     const passwordRef=useRef(null);
@@ -20,6 +23,8 @@ function LoginForm() {
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
+    
+    
     // ...
   })
   .catch((error) => {
@@ -33,6 +38,7 @@ function LoginForm() {
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+    navigate('/browse');
     // ...
   })
   .catch((error) => {

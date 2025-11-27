@@ -1,8 +1,10 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Routes from '../utils/routes'
 import Header from './header'
 
-function Body() {   
+
+
+function Body() {    
             
   return (
     <>    

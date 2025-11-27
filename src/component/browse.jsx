@@ -1,14 +1,29 @@
 import React, { useState } from 'react'
+import Header from './header'
+import { auth } from '../utils/firebase';
+import { signOut } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
-function Browse() {
-    const [count,setCount]=useState(0);
-    if(count===3){
-        throw new Error("I crashed because count is 3");
-    }
+function Browse() {   
+const navigate = useNavigate();
+const handleSignOut = () =>{
+signOut(auth).then(() => {
+  // Sign-out successful.
+  navigate('/');
+}).catch((error) => {
+  // An error happened.
+  console.log("Error signing out: ", error);
+});
+}
   return (
-    <div>
-      Browse Component
-      <button onClick={()=>setCount(count+1)}>Count is {count}</button>
+    <div className="w-full h-screen relative">
+      <Header />
+      <button
+        onClick={handleSignOut}
+        className="absolute top-4 right-4 z-10 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 "
+      >
+        Sign out
+      </button>
     </div>
   )
 }
