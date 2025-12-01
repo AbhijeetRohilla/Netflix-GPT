@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import Header from './header'
 import { auth } from '../utils/firebase';
 import { signOut } from "firebase/auth";
 
-function Browse() {   
+import MainContainer from './MainContainer';
+import SecondaryContainer from './secondaryContainer';
+import useGetMovies from '../helper/hooks-custom/useGetMovies';
+
+function Browse() {      
+        
 const handleSignOut = () =>{
 signOut(auth).then(() => {
   // Sign-out successful.  
@@ -12,6 +17,7 @@ signOut(auth).then(() => {
   console.log("Error signing out: ", error);
 });
 }
+
   return (
     <div className="w-full h-screen relative">
       <Header />
@@ -20,7 +26,9 @@ signOut(auth).then(() => {
         className="absolute top-4 right-4 z-10 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 "
       >
         Sign out
-      </button>
+      </button>  
+      <MainContainer  />
+      <SecondaryContainer/>          
     </div>
   )
 }

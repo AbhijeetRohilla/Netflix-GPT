@@ -9,8 +9,8 @@ import { addUser, removeUser } from '../redux/userSlice';
 function Header() {
   const navigate=useNavigate();
   const dispatch=useDispatch();
-   useEffect(()=>{
-onAuthStateChanged(auth, (user) => {
+   useEffect(()=>{    
+const unsubscribe = onAuthStateChanged(auth, (user) => {
   console.log("Auth state changed:", user);
   const { email, uid, displayName } = user || {};
   if (user) {        
@@ -26,6 +26,7 @@ onAuthStateChanged(auth, (user) => {
     // ...
   }
 });
+return () => unsubscribe();
   },[])
 
   return (
