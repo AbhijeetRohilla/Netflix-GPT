@@ -8,24 +8,21 @@ function VideoBackground({ data }) {
   let val;
   if (id) {
     useGetTrailer(id);
-    const movieTrailerData = useSelector((store) => store?.movies?.trailerData);
-    console.log("trailerData", movieTrailerData?.results);
-    val = movieTrailerData?.results?.find((item) => item?.type === "Trailer");
-    console.log("val", val);
+    const movieTrailerData = useSelector((store) => store?.movies?.trailerData);    
+    val = movieTrailerData?.results?.find((item) => item?.type === "Trailer");    
   }
 
 
   return (
-    <div>
+    <div className=''>
       {id && 
       <iframe className='w-screen h-screen'
-       src={`${YOUTUBE_URL}${val?.key}`}
+       src={`${YOUTUBE_URL}${val?.key}?autoplay=1&mute=1&enablejsapi=1`}
         title="YouTube video player" frameBorder="0"
          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
            allowFullScreen></iframe>
       }
-
     </div>
   )
 }

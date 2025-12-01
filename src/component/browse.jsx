@@ -5,10 +5,15 @@ import { signOut } from "firebase/auth";
 
 import MainContainer from './MainContainer';
 import SecondaryContainer from './secondaryContainer';
-import useGetMovies from '../helper/hooks-custom/useGetMovies';
+import { useDispatch,useSelector } from 'react-redux';
+import { toggleGpt } from '../redux/gptSlice';
+import GptPage from './GPT/gptPage';
+import { LANGUAGE_CONSTANTS } from '../utils/constant';
+import { supportedLanguages } from '../utils/languageContants';
 
 function Browse() {      
-        
+        const dispatch=useDispatch();
+        const toggleState=useSelector((store)=>store.gpt.isGpt);        
 const handleSignOut = () =>{
 signOut(auth).then(() => {
   // Sign-out successful.  
@@ -17,18 +22,41 @@ signOut(auth).then(() => {
   console.log("Error signing out: ", error);
 });
 }
+const handleGpt=()=>{
+  dispatch(toggleGpt())
+}
 
   return (
-    <div className="w-full h-screen relative">
+    <div className="w-full h-screen relative ">
       <Header />
+      <button className='absolute top-4 right-30 z-20 bg-purple-500 hover:bg-purple-900 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer'
+      onClick={handleGpt}
+      >GPT</button>
+      <select className='absolute top-4 right-50 z-30 bg-green-500 hover:bg-green-900 w-16 text-sm text-white font-semibold rounded-lg cursor-pointer' >
+          {supportedLanguages?.map((item)=>{
+            return (
+              <option value={item.code}>{item.name}</option>
+            )
+          })}
+          </select>  
       <button
         onClick={handleSignOut}
-        className="absolute top-4 right-4 z-10 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 "
+        className="absolute top-4 right-4 z-10 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4  rounded-lg cursor-pointer"
       >
         Sign out
       </button>  
-      <MainContainer  />
-      <SecondaryContainer/>          
+      {
+        toggleState ?
+        <>              
+        <GptPage/>
+        </>
+        :
+        <>
+         <MainContainer  />
+      <SecondaryContainer/>  
+        </>
+      }
+             
     </div>
   )
 }

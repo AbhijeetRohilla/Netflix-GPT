@@ -10,11 +10,9 @@ function Header() {
   const navigate=useNavigate();
   const dispatch=useDispatch();
    useEffect(()=>{    
-const unsubscribe = onAuthStateChanged(auth, (user) => {
-  console.log("Auth state changed:", user);
+const unsubscribe = onAuthStateChanged(auth, (user) => {  
   const { email, uid, displayName } = user || {};
-  if (user) {        
-    console.log("User is signed in");
+  if (user) {            
     dispatch(addUser({email,uid,displayName}))     
     navigate('/browse');          
     // ...
