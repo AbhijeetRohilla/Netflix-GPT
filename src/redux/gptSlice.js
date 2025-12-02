@@ -4,8 +4,7 @@ const gptSlice = createSlice({
     initialState:{
         isGpt:false},
         reducers:{
-            toggleGpt:(state)=>{
-                console.log(state.isGpt,"Abhijeet")
+            toggleGpt:(state)=>{                
                   state.isGpt=!state.isGpt;
             }
         }

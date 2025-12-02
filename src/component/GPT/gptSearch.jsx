@@ -4,8 +4,7 @@ import { LANGUAGE_CONSTANTS } from '../../utils/constant'
 
 function GptSearch() {
     const lang=useSelector(store=>store.lang)
-    const objForLang= LANGUAGE_CONSTANTS.filter((currentLang)=>lang==currentLang.code);  
-    console.log(objForLang)  
+    const objForLang= LANGUAGE_CONSTANTS.filter((currentLang)=>lang==currentLang.code);      
   return (
     <div className='z-40'>
         <h1>dscvdfvffff</h1>

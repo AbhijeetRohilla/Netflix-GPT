@@ -28,8 +28,7 @@ const handleGpt=()=>{
   dispatch(toggleGpt())
 }
 const handleLang=(e)=>{  
-  inputRef=e.target.value;
-  console.log(inputRef,"Abhi")
+  inputRef=e.target.value;  
   dispatch(changeLang(inputRef))  
 }
 
