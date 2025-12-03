@@ -1,13 +1,18 @@
+import { Provider } from 'react-redux'
 import './App.css'
+import Body from './component/body'
+import ErrorBoundary from './ErrorHandling/ErrorBoundary'
+import store from './redux/store'
 
 function App() {
-  
-
   return (
-    < >
-      <h1 className="bg-gray-700 text-amber-100 text-3xl font-bold" >Welcome to Netflix GPT</h1>    
+    <>
+    <Provider store={store}>
+      <ErrorBoundary>
+        <Body />        
+      </ErrorBoundary>
+      </Provider>
     </>
   )
 }
-
 export default App
